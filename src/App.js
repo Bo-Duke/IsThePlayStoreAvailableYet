@@ -1,18 +1,41 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import ChromebookTable from 'ChromebookTable';
+import styles from './styles';
+import tabletojson from 'tabletojson';
 
 class App extends Component {
+  componentWillMount() {
+    const chromebooks = [];
+    tabletojson.convertUrl(
+      'http://www.chromium.org/chromium-os/chrome-os-systems-supporting-android-apps',
+      {useFirstRowForHeadings: false},
+      function (tablesAsJson) {
+        tablesAsJson[3].forEach((cb) => {
+          if (cb[0] !== 'Manufacturer') {
+            if (Object.keys(cb).length === 3) {
+              chromebooks.push({Manufacturer: cb[0], Chromebook: cb[1], status: cb[2]});
+            } else {
+              const manu = chromebooks[chromebooks.length - 1].Manufacturer;
+              chromebooks.push({Manufacturer: manu, Chromebook: cb[0], status: cb[1]});
+            }
+          }
+        });
+        this.chromebooksList = chromebooks;
+      }
+    );
+  }
   render() {
     return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
+      <div style={styles.app}>
+        <div style={styles.appHeader}>
+          <h2>Is The Play Store Out Yet?</h2>
         </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <div style={styles.appIntro}>
+          <input type="text"/>
+          <table>
+            <ChromebookTable chromebooksList={this.chromebooksList} />
+          </table>
+        </div>
       </div>
     );
   }

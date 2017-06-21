@@ -32,10 +32,6 @@ class App extends Component {
     );
   }
 
-  handleChange = (event) => {
-    this.setState({filter: event.target.value});
-  }
-
   render() {
     return (
       <div style={styles.app}>
@@ -43,7 +39,6 @@ class App extends Component {
           <h2>Is The Play Store Out Yet?</h2>
         </div>
         <div style={styles.appIntro}>
-          <input type="text" value={this.state.filter} onChange={this.handleChange} />
           { this.state.finishedFetch ?
             <ChromebookTable
               chromebooksList={this.state.chromebooksList}

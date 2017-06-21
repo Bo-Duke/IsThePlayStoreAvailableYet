@@ -8,6 +8,7 @@ class App extends Component {
     this.state = {
       chromebooksList: [],
       finishedFetch: false,
+      selected: null,
     };
 
     const results = [];
@@ -31,6 +32,20 @@ class App extends Component {
     );
   }
 
+  handleSelect = (chromebook) => {
+    this.setState({ selected: chromebook });
+  };
+
+  getSelectedStatus = () => {
+    if (!this.state.selected) return '';
+    if (this.state.selected.status === 'Planned')
+      return 'No (but it\'s planned)';
+    if (this.state.selected.status === 'Beta Channel')
+      return 'Yes (but on the beta channel)';
+    if (this.state.selected.status === 'Stable Channel')
+      return 'Yes!';
+  };
+
   render() {
     return (
       <div style={styles.app}>
@@ -39,8 +54,10 @@ class App extends Component {
           { this.state.finishedFetch ?
             <ChromebookTable
               chromebooksList={this.state.chromebooksList}
+              handleSelect={this.handleSelect}
             /> : '' }
           <h2>has the Play Store yet?</h2>
+          <h1>{this.getSelectedStatus()}</h1>
         </div>
       </div>
     );

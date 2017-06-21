@@ -2,13 +2,12 @@ export default {
   app: {
     textAlign: 'center',
   },
-  appHeader: {
-    backgroundColor: '#222',
-    height: 50,
-    padding: 20,
-    color: 'white',
+  appWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
   },
-  appIntro: {
-    fontSize: 'large',
+  autoCompletionWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
   },
 }

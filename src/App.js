@@ -8,7 +8,6 @@ class App extends Component {
     this.state = {
       chromebooksList: [],
       finishedFetch: false,
-      filter: '',
     };
 
     const results = [];
@@ -32,23 +31,16 @@ class App extends Component {
     );
   }
 
-  handleChange = (event) => {
-    this.setState({filter: event.target.value});
-  }
-
   render() {
     return (
       <div style={styles.app}>
-        <div style={styles.appHeader}>
-          <h2>Is The Play Store Out Yet?</h2>
-        </div>
-        <div style={styles.appIntro}>
-          <input type="text" value={this.state.filter} onChange={this.handleChange} />
+        <div style={styles.appWrapper}>
+          <h2>Does the</h2>
           { this.state.finishedFetch ?
             <ChromebookTable
               chromebooksList={this.state.chromebooksList}
-              filter={this.state.filter}
             /> : '' }
+          <h2>has the Play Store yet?</h2>
         </div>
       </div>
     );

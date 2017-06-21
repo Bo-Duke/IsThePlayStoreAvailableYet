@@ -11,7 +11,4 @@ export default {
   appIntro: {
     fontSize: 'large',
   },
-  chromebooksAutocomplete: {
-    textAlign: 'left',
-  }
 }

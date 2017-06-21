@@ -1,18 +1,22 @@
 import React from 'react';
-import Autocomplete from 'react-autocomplete';
-import styles from './styles';
 
 const ChromebookTable = (props) => {
   return (
-    <Autocomplete
-      getItemValue={(item) => `${item.Manufacturer} ${item.Chromebook}`}
-      items={props.chromebooksList}
-      renderItem={(item, isHighlighted) =>
-        <div style={{ background: isHighlighted ? 'lightgray' : 'white', ...styles.chromebooksAutocomplete }}>
-          {`${item.Manufacturer} ${item.Chromebook}`}
-        </div>
-      }
-    />
+    <table>
+      <tbody>
+        {props.chromebooksList.filter(cb =>
+          `${cb.Manufacturer} ${cb.Chromebook}`.toLowerCase().includes(props.filter.toLowerCase())
+        ).map(cb => {
+          return (
+            <tr>
+              <td>{cb.Manufacturer}</td>
+              <td>{cb.Chromebook}</td>
+              <td>{cb.status}</td>
+            </tr>
+          );
+        })}
+      </tbody>
+    </table>
   )
 };
 

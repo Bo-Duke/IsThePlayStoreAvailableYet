@@ -23,6 +23,26 @@ class ChromebookTable extends Component {
     this.props.handleSelect(chromebook);
   };
 
+  renderAutoCompletion = () => {
+    if (this.state.filter.length > 0 && !this.state.selected) {
+      return this.props.chromebooksList.filter(cb =>
+        `${cb.Manufacturer} ${cb.Chromebook}`.toLowerCase().includes(this.state.filter.toLowerCase())
+      ).map(cb => {
+        const boundedCb = this.handleSelect.bind(this, cb);
+        return (
+          <div style={styles.autoCompletionItem} onClick={boundedCb}>{cb.Manufacturer} {cb.Chromebook}</div>
+        );
+      })
+    } else {
+      return '';
+    }
+  };
+
+  getHeight = () => {
+    const nbElement = this.renderAutoCompletion().length;
+    return nbElement > 8 ? 8*45 : nbElement*45;
+  }
+
   render() {
     return (
       <div>
@@ -31,17 +51,15 @@ class ChromebookTable extends Component {
           <input type="text" style={styles.autoCompletionInput} value={this.state.filter} onChange={this.handleFilterChange} />
           <div style={styles.autoCompletionInputBorder}></div>
         </div>
-        {this.state.filter.length > 0 && !this.state.selected ?
-        <div style={styles.autoCompletionWrapper} >
-          {this.props.chromebooksList.filter(cb =>
-            `${cb.Manufacturer} ${cb.Chromebook}`.toLowerCase().includes(this.state.filter.toLowerCase())
-          ).map(cb => {
-            const boundedCb = this.handleSelect.bind(this, cb);
-            return (
-              <p onClick={boundedCb}>{cb.Manufacturer} {cb.Chromebook}</p>
-            );
-          })}
-        </div> : ''}
+        <div
+          style={
+            this.state.filter.length > 0 && !this.state.selected ?
+              { ...styles.autoCompletionWrapper, height: this.getHeight() } :
+              styles.autoCompletionWrapperHidden
+          }
+        >
+          {this.renderAutoCompletion()}
+        </div>
       </div>
     )
   }

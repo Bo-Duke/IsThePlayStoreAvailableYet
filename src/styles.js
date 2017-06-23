@@ -1,8 +1,12 @@
 export default {
   app: {
     textAlign: 'center',
-    backgroundColor: '#33a4ff',
     color: 'white',
+    height: '100vh',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    transition: 'background-color 0.5s ease',
   },
   appWrapper: {
     display: 'flex',

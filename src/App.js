@@ -9,6 +9,7 @@ class App extends Component {
       chromebooksList: [],
       finishedFetch: false,
       selected: null,
+      backgroundColor: '#33a4ff',
     };
 
     const results = [];
@@ -33,24 +34,41 @@ class App extends Component {
   }
 
   handleSelect = (chromebook) => {
-    this.setState({ selected: chromebook });
-  };
-
-  getSelectedStatus = () => {
-    if (!this.state.selected) return '';
-    if(this.state.selected.model)
-      return 'No.';
-    if (this.state.selected.status === 'Planned')
-      return 'No (but it\'s planned)';
-    if (this.state.selected.status === 'Beta Channel')
-      return 'Yes (but on the beta channel)';
-    if (this.state.selected.status === 'Stable Channel')
-      return 'Yes!';
+    if (chromebook === null) {
+      this.setState({
+        backgroundColor: '#33a4ff',
+        status: '',
+      });
+    }
+    else if (chromebook.model) {
+      this.setState({
+        backgroundColor: '#ff3d44',
+        status: 'No.',
+      });
+    }
+    else if (chromebook.status === 'Planned') {
+      this.setState({
+        backgroundColor: '#ff8324',
+        status: 'No (but it\'s planned)',
+      });
+    }
+    else if (chromebook.status === 'Beta Channel') {
+      this.setState({
+        backgroundColor: '#c4ff2e',
+        status: 'Yes (but on the beta channel)',
+      });
+    }
+    else if (chromebook.status === 'Stable Channel') {
+      this.setState({
+        backgroundColor: '#52ff5c',
+        status: 'Yes!',
+      });
+    }
   };
 
   render() {
     return (
-      <div style={styles.app}>
+      <div style={{ backgroundColor: this.state.backgroundColor, ...styles.app }}>
         <div style={styles.appWrapper}>
           <h2>Does the</h2>
           { this.state.finishedFetch ?
@@ -59,7 +77,7 @@ class App extends Component {
               handleSelect={this.handleSelect}
             /> : '' }
           <h2>have the Play Store yet?</h2>
-          <h1>{this.getSelectedStatus()}</h1>
+          <h1>{this.state.status}</h1>
         </div>
       </div>
     );

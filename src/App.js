@@ -38,6 +38,8 @@ class App extends Component {
 
   getSelectedStatus = () => {
     if (!this.state.selected) return '';
+    if(this.state.selected.model)
+      return 'No.';
     if (this.state.selected.status === 'Planned')
       return 'No (but it\'s planned)';
     if (this.state.selected.status === 'Beta Channel')
@@ -56,7 +58,7 @@ class App extends Component {
               chromebooksList={this.state.chromebooksList}
               handleSelect={this.handleSelect}
             /> : '' }
-          <h2>has the Play Store yet?</h2>
+          <h2>have the Play Store yet?</h2>
           <h1>{this.getSelectedStatus()}</h1>
         </div>
       </div>

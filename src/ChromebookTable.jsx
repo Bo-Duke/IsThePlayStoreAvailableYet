@@ -23,6 +23,14 @@ class ChromebookTable extends Component {
     this.props.handleSelect(chromebook);
   };
 
+  handleSelectInput = () => {
+    const selected = { model: this.state.filter }
+    this.setState({
+      selected,
+    });
+    this.props.handleSelect(selected);
+  };
+
   renderAutoCompletion = () => {
     if (this.state.filter.length > 0 && !this.state.selected) {
       return this.props.chromebooksList.filter(cb =>
@@ -40,7 +48,7 @@ class ChromebookTable extends Component {
 
   getHeight = () => {
     const nbElement = this.renderAutoCompletion().length;
-    return nbElement > 8 ? 8*45 : nbElement*45;
+    return nbElement > 8 ? 8*45 : (nbElement+1)*45;
   }
 
   render() {
@@ -58,6 +66,12 @@ class ChromebookTable extends Component {
               styles.autoCompletionWrapperHidden
           }
         >
+          { (this.state.filter.length > 0 && !this.state.selected) && <div
+            style={styles.autoCompletionItem}
+            onClick={this.handleSelectInput}
+          >
+            {this.state.filter}
+          </div> }
           {this.renderAutoCompletion()}
         </div>
       </div>

@@ -62,11 +62,11 @@ export default {
   },
   autoCompletionInputBorder: {
     borderLeft: '1px solid white',
-    height: '4px'
+    height: '4px',
   },
   autoCompletionInputWrapper: {
     display: 'flex',
     justifyContent: 'center',
-    alignItems: 'flex-end'
-  }
+    alignItems: 'flex-end',
+  },
 }

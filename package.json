@@ -2,7 +2,9 @@
   "name": "istheplaystoreavailableyet",
   "version": "0.1.0",
   "private": true,
+  "homepage": "http://bouveronmaxi.me/IsThePlayStoreAvailableYet",
   "dependencies": {
+    "gh-pages": "^1.0.0",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "whatwg-fetch": "^2.0.3"
@@ -16,6 +18,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "format": "prettier --trailing-comma all --single-quote --no-semi --write 'src/**/*.js' 'src/**/*.jsx'",
+    "deploy": "gh-pages -d build",
+    "pre:deploy": "npm run build",
     "eject": "react-scripts eject"
   }
 }

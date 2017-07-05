@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import ChromebookTable from './ChromebookTable'
 import styles from './styles'
-import tabletojson from 'tabletojson'
+import 'whatwg-fetch'
 
 class App extends Component {
   componentWillMount() {
@@ -12,33 +12,11 @@ class App extends Component {
       backgroundColor: '#33a4ff',
     }
 
-    const results = []
-
-    tabletojson.convertUrl(
-      'http://www.chromium.org/chromium-os/chrome-os-systems-supporting-android-apps',
-      { useFirstRowForHeadings: false },
-      tablesAsJson => {
-        tablesAsJson[3].forEach(cb => {
-          if (cb[0] !== 'Manufacturer') {
-            if (Object.keys(cb).length === 3) {
-              results.push({
-                Manufacturer: cb[0],
-                Chromebook: cb[1],
-                status: cb[2],
-              })
-            } else {
-              const manu = results[results.length - 1].Manufacturer
-              results.push({
-                Manufacturer: manu,
-                Chromebook: cb[0],
-                status: cb[1],
-              })
-            }
-          }
-        })
-        this.setState({ chromebooksList: results, finishedFetch: true })
-      },
-    )
+    fetch('http://fierce-sea-99727.herokuapp.com/chromebookStatus')
+      .then(res => res.json())
+      .then(res => {
+        this.setState({ chromebooksList: res, finishedFetch: true })
+      })
   }
 
   handleSelect = chromebook => {

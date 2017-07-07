@@ -14,10 +14,13 @@ export default {
   },
   autoCompletionItem: {
     height: 45,
+    width: '20rem',
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center',
+    textAlign: 'right',
     padding: 5,
+    whiteSpace: 'nowrap',
+    textOverflow: 'ellipsis',
   },
   autoCompletionWrapper: {
     display: 'flex',
@@ -49,6 +52,7 @@ export default {
     padding: 0,
     border: 'none',
     maxHeight: 0,
+    height: 0,
   },
   autoCompletionInput: {
     border: 'none',

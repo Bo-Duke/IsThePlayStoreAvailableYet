@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import MDSpinner from 'react-md-spinner'
+import { Helmet } from 'react-helmet'
 import ChromebookTable from './ChromebookTable'
 import styles from './styles'
 import 'whatwg-fetch'
@@ -54,6 +55,9 @@ class App extends Component {
       <div
         style={{ backgroundColor: this.state.backgroundColor, ...styles.app }}
       >
+        <Helmet>
+          <meta name="theme-color" content={this.state.backgroundColor} />
+        </Helmet>
         {this.state.finishedFetch
           ? <div style={styles.appWrapper}>
               <h2>Does the</h2>

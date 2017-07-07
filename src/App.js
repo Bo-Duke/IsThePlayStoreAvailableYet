@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import MDSpinner from 'react-md-spinner'
 import ChromebookTable from './ChromebookTable'
 import styles from './styles'
 import 'whatwg-fetch'
@@ -53,17 +54,17 @@ class App extends Component {
       <div
         style={{ backgroundColor: this.state.backgroundColor, ...styles.app }}
       >
-        <div style={styles.appWrapper}>
-          <h2>Does the</h2>
-          {this.state.finishedFetch
-            ? <ChromebookTable
+        {this.state.finishedFetch
+          ? <div style={styles.appWrapper}>
+              <h2>Does the</h2>
+              <ChromebookTable
                 chromebooksList={this.state.chromebooksList}
                 handleSelect={this.handleSelect}
               />
-            : ''}
-          <h2>have the Play Store yet?</h2>
-          <h1>{this.state.status}</h1>
-        </div>
+              <h2>have the Play Store yet?</h2>
+              <h1>{this.state.status}</h1>
+            </div>
+          : <MDSpinner singleColor={'#ffffff'} />}
       </div>
     )
   }
